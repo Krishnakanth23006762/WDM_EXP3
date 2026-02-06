@@ -113,8 +113,14 @@ import matplotlib.pyplot as plt
 # Function to visualize frequent sequential patterns with a line plot
 def visualize_patterns_line(result, category):
     if result:
-        patterns = list(result.keys())
-        support = list(result.values())
+        # Flatten the dictionary of dictionaries into a single dictionary for plotting
+        flat_patterns = {}
+        for k, patterns_k in result.items():
+            for pattern, support in patterns_k.items():
+                flat_patterns[pattern] = support
+
+        patterns = list(flat_patterns.keys())
+        support = list(flat_patterns.values())
 
         plt.figure(figsize=(10, 6))
         plt.plot([str(pattern) for pattern in patterns], support, marker='o', linestyle='-', color='blue')
@@ -128,13 +134,12 @@ def visualize_patterns_line(result, category):
         print(f"No frequent sequential patterns found in {category}.")
 
 # Visualize frequent sequential patterns for each category using a line plot
-visualize_patterns_line(top_wear_result, 'Top Wear')
-visualize_patterns_line(bottom_wear_result, 'Bottom Wear')
-visualize_patterns_line(party_wear_result, 'Party Wear')
+visualize_patterns_line(res1, 'Dataset 1')
 ```
 ### Output:
 
 
+<img width="1264" height="749" alt="image" src="https://github.com/user-attachments/assets/dae2acdb-6605-44bd-8c76-0034f7730567" />
 
 
 ### Result:
