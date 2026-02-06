@@ -104,6 +104,7 @@ print_results(res1, "Frequent Patterns - Dataset_1")
 ```
 ### Output:
 <img width="517" height="686" alt="image" src="https://github.com/user-attachments/assets/72f22916-7242-4969-8305-693081c0504a" />
+<img width="439" height="663" alt="image" src="https://github.com/user-attachments/assets/738f4fab-5c1c-46fb-86e4-2365b9c838c7" />
 
 ### Visualization:
 ```python
@@ -133,9 +134,7 @@ visualize_patterns_line(party_wear_result, 'Party Wear')
 ```
 ### Output:
 
-<img width="399" height="653" alt="image" src="https://github.com/user-attachments/assets/6327e1d4-f313-47e8-ae93-0fb0cb93b089" />
 
-<img width="439" height="663" alt="image" src="https://github.com/user-attachments/assets/738f4fab-5c1c-46fb-86e4-2365b9c838c7" />
 
 
 ### Result:
