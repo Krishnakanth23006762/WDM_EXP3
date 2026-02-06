@@ -41,67 +41,69 @@ for each wear category.</p>
 ```python
 from collections import defaultdict
 from itertools import combinations
-# Function to generate candidate k-item sequences
-def generate_candidates(dataset, k):
 
+# Generate candidate patterns of length k
+def generate_candidates(dataset, k, min_support):
+    counter = defaultdict(int)
 
-    /WRITE YOUR CODE HERE/
+    for seq in dataset:
+        # remove duplicates per sequence (support = sequence count)
+        unique_items = sorted(set(seq))
 
+        for comb in combinations(unique_items, k):
+            counter[comb] += 1
 
-#Function to perform GSP algorithm
+    return {p: s for p, s in counter.items() if s >= min_support}
+
+# GSP-style (simplified frequent pattern mining)
 def gsp(dataset, min_support):
+    k = 1
+    results = {}
+
+    while True:
+        freq = generate_candidates(dataset, k, min_support)
+        if not freq:
+            break
+        results[k] = freq
+        k += 1
+
+    return results
 
 
-  /WRITE YOUR CODE HERE/
-
-
-#Example dataset for each category
-top_wear_data = [
- ["blouse", "t-shirt", "tank_top"],
- ["hoodie", "sweater", "top"],["hoodie"],["hoodie","sweater"]
- #Add more sequences for top wear
+# Dataset
+Dataset_1 = [
+    ["a","b","c","b","e","c","f","g","a","b","e"],
+    ["a","d","b","c","c","f","g","c","h"],
+    ["b","c","a","d","e","b","f","c","d","f","g","h"],
+    ["c","e","c","e","h"]
 ]
-bottom_wear_data = [
- ["jeans", "trousers", "shorts"],
- ["leggings", "skirt", "chinos"],
- # Add more sequences for bottom wear
-]
-party_wear_data = [
- ["cocktail_dress", "evening_gown", "blazer"],
- ["party_dress", "formal_dress", "suit"],
- ["party_dress", "formal_dress", "suit"],
- ["party_dress", "formal_dress", "suit"],
- ["party_dress", "formal_dress", "suit"],
- ["party_dress"],["party_dress"],
- # Add more sequences for party wear
-]
-#Minimum support threshold
-min_support = 2
-#Perform GSP algorithm for each category
-top_wear_result = gsp(top_wear_data, min_support)
-bottom_wear_result = gsp(bottom_wear_data, min_support)
-party_wear_result = gsp(party_wear_data, min_support)
-#Output the frequent sequential patterns for each category
-print("Frequent Sequential Patterns - Top Wear:")
-if top_wear_result:
- for pattern, support in top_wear_result.items():
- print(f"Pattern: {pattern}, Support: {support}")
-else:
- print("No frequent sequential patterns found in Top Wear.")
-print("\nFrequent Sequential Patterns - Bottom Wear:")
-if bottom_wear_result:
- for pattern, support in bottom_wear_result.items():
- print(f"Pattern: {pattern}, Support: {support}")
-else:
- print("No frequent sequential patterns found in Bottom Wear.")
-print("\nFrequent Sequential Patterns - Party Wear:")
-if party_wear_result:
- for pattern, support in party_wear_result.items():
- print(f"Pattern: {pattern}, Support: {support}")
-else:
- print("No frequent sequential patterns found in Party Wear.")
+
+# Minimum support
+min_support = 3
+
+# Run algorithm
+res1 = gsp(Dataset_1, min_support)
+
+
+# Print results in table format
+def print_results(results, name):
+    print(f"\n{name}")
+
+    for k in sorted(results.keys()):
+        print(f"\n{k}-Length Patterns")
+        print("-" * 42)
+        print("Pattern".ljust(30), "Support".rjust(6))
+        print("-" * 42)
+
+        for pattern, support in sorted(results[k].items()):
+            print(str(pattern).ljust(30), str(support).rjust(4))
+
+
+# Display output
+print_results(res1, "Frequent Patterns - Dataset_1")
 ```
 ### Output:
+<img width="517" height="686" alt="image" src="https://github.com/user-attachments/assets/72f22916-7242-4969-8305-693081c0504a" />
 
 ### Visualization:
 ```python
@@ -130,6 +132,10 @@ visualize_patterns_line(bottom_wear_result, 'Bottom Wear')
 visualize_patterns_line(party_wear_result, 'Party Wear')
 ```
 ### Output:
+
+<img width="399" height="653" alt="image" src="https://github.com/user-attachments/assets/6327e1d4-f313-47e8-ae93-0fb0cb93b089" />
+
+<img width="439" height="663" alt="image" src="https://github.com/user-attachments/assets/738f4fab-5c1c-46fb-86e4-2365b9c838c7" />
 
 
 ### Result:
