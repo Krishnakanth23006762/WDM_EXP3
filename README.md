@@ -143,3 +143,5 @@ visualize_patterns_line(res1, 'Dataset 1')
 
 
 ### Result:
+Thus the implementation of the GSP algorithm in python has been successfully executed.
+
